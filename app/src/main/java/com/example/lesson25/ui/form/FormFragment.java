@@ -55,14 +55,10 @@ public class FormFragment extends Fragment {
             public void onClick(View v) {
                 String title = binding.etTitle.getText().toString();
                 String content = binding.etContent.getText().toString();
-                post = new Post(
-                        title,
-                        content,
-                        USER_ID,
-                        GROUP_ID
-                );
+
                 if (getArguments()!=null ){
                     App.api.updatePost(post.getId(),post).enqueue(new Callback<Post>() {
+
                         @Override
                         public void onResponse(Call<Post> call, Response<Post> response) {
                             close();
@@ -74,10 +70,18 @@ public class FormFragment extends Fragment {
                         }
                     });
                 }else {
+                    post = new Post(
+                            title,
+                            content,
+                            USER_ID,
+                            GROUP_ID
+                    );
                     App.api.createPost(post).enqueue(new Callback<Post>() {
+
                         @Override
                         public void onResponse(Call<Post> call, Response<Post> response) {
                             close();
+
                         }
 
                         @Override
